@@ -1,0 +1,20 @@
+.brightroom__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+
+  canvas {
+    transform: rotate(0deg) scale(0.5);
+    transition: 0.2s ease-in-out all;
+  }
+}
+
+.brightroom__controls {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 50px;
+}

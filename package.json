@@ -1,0 +1,63 @@
+{
+  "version": "0.0.1",
+  "license": "BSD-3-Clause-Clear",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": true,
+    "arrowParens": "avoid"
+  },
+  "name": "brightroom",
+  "author": "Mat Sz <contact@matsz.dev>",
+  "description": "Embeddable image editor for the modern web (TypeScript).",
+  "keywords": [
+    "image",
+    "image-editor",
+    "canvas",
+    "editor",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mat-sz/brightroom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mat-sz/brightroom/issues"
+  },
+  "homepage": "https://github.com/mat-sz/brightroom",
+  "module": "dist/brightroom.esm.js",
+  "devDependencies": {
+    "autoprefixer": "^9.7.6",
+    "husky": "^4.2.5",
+    "node-sass": "^4.14.1",
+    "rollup-plugin-postcss": "^3.1.1",
+    "tsdx": "^0.13.2",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "exifreader": "^3.11.2"
+  }
+}
