@@ -162,6 +162,17 @@ export default class Brightroom {
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((this.rotation * Math.PI) / 180);
     ctx.drawImage(this.currentImage, -naturalWidth / 2, -naturalHeight / 2);
+
+    if (this.flipV) {
+      ctx.translate(0, canvas.height);
+      ctx.scale(1, -1);
+    }
+
+    if (this.flipH) {
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+    }
+
     ctx.restore();
 
     return canvas;
