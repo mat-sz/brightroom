@@ -174,6 +174,9 @@ export default class Brightroom {
       this.canvas.height = 0;
     }
 
+    this.canvas.style.width = this.canvas.width + 'px';
+    this.canvas.style.height = this.canvas.height + 'px';
+
     this.updateTransform();
     requestAnimationFrame(this.draw);
   }
