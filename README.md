@@ -1,6 +1,8 @@
 # Brightroom
 
-Embeddable image editor for the modern web (TypeScript). [NPM](http://npmjs.com/package/brightroom)
+Embeddable image editor for the modern web (TypeScript). [NPM](https://npmjs.com/package/brightroom)
+
+See [imtool](https://github.com/mat-sz/imtool) for a simple TypeScript image manipulation library with no GUI.
 
 ## Installation
 
