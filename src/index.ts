@@ -135,7 +135,13 @@ export default class Brightroom {
 
   private updateTransform() {
     this.canvas.style.transform =
-      'rotate(' + this.rotation + 'deg) scale(' + 1 / this.scale + ')';
+      'rotateX(0) rotateY(50deg) rotateZ(' +
+      this.rotation +
+      'deg) scale3d(' +
+      1 / this.scale +
+      ', ' +
+      1 / this.scale +
+      ', 1)';
   }
 
   private resize() {

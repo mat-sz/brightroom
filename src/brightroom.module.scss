@@ -4,9 +4,12 @@
   justify-content: center;
   align-items: center;
   background: #111;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 
   canvas {
-    transform: rotate(0deg) scale(0.5);
+    transform-style: preserve-3d;
+    transform: rotateX(0) rotateY(0) rotateZ(0) scale(0.5);
     transition: 0.2s ease-in-out all;
   }
 }
