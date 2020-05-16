@@ -27,6 +27,8 @@ export default class Brightroom {
   private currentContainer: HTMLElement | undefined;
   private currentImage: HTMLImageElement | undefined;
   private rotation: BrightroomRotation = BrightroomRotation.ROTATION_0;
+  private flipH = false;
+  private flipV = false;
 
   /**
    * Hi-DPI scale.
@@ -130,12 +132,15 @@ export default class Brightroom {
     this.rotation = rotation;
 
     this.resize();
-    this.updateTransform();
   }
 
   private updateTransform() {
     this.canvas.style.transform =
-      'rotateX(0) rotateY(50deg) rotateZ(' +
+      'rotateX(' +
+      (this.flipV ? '180deg' : '0') +
+      ') rotateY(' +
+      (this.flipH ? '180deg' : '0') +
+      ') rotateZ(' +
       this.rotation +
       'deg) scale3d(' +
       1 / this.scale +
@@ -231,5 +236,21 @@ export default class Brightroom {
       }
     });
     this.controls.appendChild(rotateBtn);
+
+    const flipVBtn = document.createElement('button');
+    flipVBtn.innerText = 'Flip V';
+    flipVBtn.addEventListener('click', () => {
+      this.flipV = !this.flipV;
+      this.resize();
+    });
+    this.controls.appendChild(flipVBtn);
+
+    const flipHBtn = document.createElement('button');
+    flipHBtn.innerText = 'Flip H';
+    flipHBtn.addEventListener('click', () => {
+      this.flipH = !this.flipH;
+      this.resize();
+    });
+    this.controls.appendChild(flipHBtn);
   }
 }
