@@ -134,6 +134,39 @@ export default class Brightroom {
     this.resize();
   }
 
+  async toCanvas() {
+    const canvas = document.createElement('canvas');
+
+    if (!this.currentImage || !this.loaded) {
+      throw new Error('Image is not loaded.');
+    }
+
+    const { naturalWidth, naturalHeight } = this.currentImage;
+    if (
+      this.rotation == BrightroomRotation.ROTATION_0 ||
+      this.rotation === BrightroomRotation.ROTATION_180
+    ) {
+      canvas.height = naturalHeight;
+      canvas.width = naturalWidth;
+    } else {
+      canvas.height = naturalWidth;
+      canvas.width = naturalHeight;
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('Context initialization failure.');
+    }
+
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate((this.rotation * Math.PI) / 180);
+    ctx.drawImage(this.currentImage, -naturalWidth / 2, -naturalHeight / 2);
+    ctx.restore();
+
+    return canvas;
+  }
+
   private updateTransform() {
     this.canvas.style.transform =
       'rotateX(' +
