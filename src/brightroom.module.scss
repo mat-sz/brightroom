@@ -6,6 +6,7 @@
   background: #111;
   perspective: 1000px;
   transform-style: preserve-3d;
+  overflow: hidden;
 
   canvas {
     transform-style: preserve-3d;
@@ -19,5 +20,13 @@
   bottom: 0;
   right: 0;
   left: 0;
-  padding: 50px;
+  padding: 30px 50px;
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+  }
 }
