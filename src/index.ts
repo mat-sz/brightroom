@@ -64,7 +64,7 @@ export default class Brightroom {
     container.appendChild(this.controls);
 
     container.setAttribute('data-brightroom', '1');
-    container.classList.add(styles.brightroom__container);
+    container.classList.add(styles.container);
     this.currentContainer = container;
 
     this.resize();
@@ -76,7 +76,7 @@ export default class Brightroom {
       this.currentContainer.removeChild(this.controls);
 
       this.currentContainer.removeAttribute('data-brightroom');
-      this.currentContainer.classList.remove(styles.brightroom__container);
+      this.currentContainer.classList.remove(styles.container);
     }
 
     this.currentContainer = undefined;
@@ -259,8 +259,34 @@ export default class Brightroom {
     }
   }
 
+  private selectTab(tab: string) {
+    this.controls.classList.remove(
+      ...Object.keys(styles)
+        .filter(key => key.startsWith('tab_active_'))
+        .map(key => styles[key])
+    );
+    this.controls.classList.add(styles['tab_active_' + tab]);
+  }
+
   private buildControls() {
-    this.controls.classList.add(styles.brightroom__controls);
+    this.controls.classList.add(styles.controls);
+
+    // Tabs
+    const tabBtnContainer = document.createElement('div');
+    tabBtnContainer.classList.add(styles.tabs);
+
+    const transformTabBtn = document.createElement('button');
+    transformTabBtn.innerText = 'Transform';
+    transformTabBtn.addEventListener('click', () =>
+      this.selectTab('transform')
+    );
+    tabBtnContainer.appendChild(transformTabBtn);
+
+    this.controls.appendChild(tabBtnContainer);
+
+    // Transform tab
+    const transformTab = document.createElement('div');
+    transformTab.classList.add(styles.tab, styles.tab_transform);
 
     const rotateBtn = document.createElement('button');
     rotateBtn.innerText = 'Rotate';
@@ -280,7 +306,7 @@ export default class Brightroom {
           break;
       }
     });
-    this.controls.appendChild(rotateBtn);
+    transformTab.appendChild(rotateBtn);
 
     const flipVBtn = document.createElement('button');
     flipVBtn.innerText = 'Flip V';
@@ -288,7 +314,7 @@ export default class Brightroom {
       this.flipV = !this.flipV;
       this.resize();
     });
-    this.controls.appendChild(flipVBtn);
+    transformTab.appendChild(flipVBtn);
 
     const flipHBtn = document.createElement('button');
     flipHBtn.innerText = 'Flip H';
@@ -296,6 +322,8 @@ export default class Brightroom {
       this.flipH = !this.flipH;
       this.resize();
     });
-    this.controls.appendChild(flipHBtn);
+    transformTab.appendChild(flipHBtn);
+
+    this.controls.appendChild(transformTab);
   }
 }

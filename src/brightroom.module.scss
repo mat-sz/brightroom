@@ -1,4 +1,4 @@
-.brightroom__container {
+.container {
   position: relative;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
   }
 }
 
-.brightroom__controls {
+.controls {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -29,4 +29,22 @@
     color: white;
     padding: 10px;
   }
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.tab {
+  max-height: 0;
+  opacity: 0;
+  transition: 0.2s ease-in-out all;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.tab_active_transform .tab_transform {
+  max-height: 200px;
+  opacity: 1;
 }
