@@ -14,19 +14,12 @@ export interface BrightroomOptions {
   container?: HTMLElement;
 }
 
-enum BrightroomRotation {
-  ROTATION_0 = 0,
-  ROTATION_90 = 90,
-  ROTATION_180 = 180,
-  ROTATION_270 = 270
-}
-
 export default class Brightroom {
   private canvas = document.createElement('canvas');
   private controls = document.createElement('div');
   private currentContainer: HTMLElement | undefined;
   private currentImage: HTMLImageElement | undefined;
-  private rotation: BrightroomRotation = BrightroomRotation.ROTATION_0;
+  private rotation: number = 0;
   private flipH = false;
   private flipV = false;
 
@@ -128,7 +121,7 @@ export default class Brightroom {
     );
   }
 
-  rotate(rotation: BrightroomRotation) {
+  rotate(rotation: number) {
     this.rotation = rotation;
 
     this.resize();
@@ -142,10 +135,7 @@ export default class Brightroom {
     }
 
     const { naturalWidth, naturalHeight } = this.currentImage;
-    if (
-      this.rotation == BrightroomRotation.ROTATION_0 ||
-      this.rotation === BrightroomRotation.ROTATION_180
-    ) {
+    if (this.rotation % 180 === 0) {
       canvas.height = naturalHeight;
       canvas.width = naturalWidth;
     } else {
@@ -179,8 +169,8 @@ export default class Brightroom {
     return canvas;
   }
 
-  private updateTransform() {
-    this.canvas.style.transform =
+  private get transform() {
+    return (
       'rotateX(' +
       (this.flipV ? '180deg' : '0') +
       ') rotateY(' +
@@ -191,7 +181,12 @@ export default class Brightroom {
       1 / this.scale +
       ', ' +
       1 / this.scale +
-      ', 1)';
+      ', 1)'
+    );
+  }
+
+  private updateTransform() {
+    this.canvas.style.transform = this.transform;
   }
 
   private resize() {
@@ -208,10 +203,8 @@ export default class Brightroom {
       const { naturalWidth, naturalHeight } = this.currentImage;
 
       let scale = 1;
-      if (
-        this.rotation == BrightroomRotation.ROTATION_0 ||
-        this.rotation === BrightroomRotation.ROTATION_180
-      ) {
+      // We don't support anything that isn't a multiple of 90 deg yet.
+      if (this.rotation % 180 === 0) {
         scale = Math.min(
           Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight),
           1
@@ -291,20 +284,7 @@ export default class Brightroom {
     const rotateBtn = document.createElement('button');
     rotateBtn.innerText = 'Rotate';
     rotateBtn.addEventListener('click', () => {
-      switch (this.rotation) {
-        case BrightroomRotation.ROTATION_0:
-          this.rotate(BrightroomRotation.ROTATION_90);
-          break;
-        case BrightroomRotation.ROTATION_90:
-          this.rotate(BrightroomRotation.ROTATION_180);
-          break;
-        case BrightroomRotation.ROTATION_180:
-          this.rotate(BrightroomRotation.ROTATION_270);
-          break;
-        default:
-          this.rotate(BrightroomRotation.ROTATION_0);
-          break;
-      }
+      this.rotate(this.rotation + 90);
     });
     transformTab.appendChild(rotateBtn);
 
